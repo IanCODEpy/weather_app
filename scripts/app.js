@@ -58,10 +58,27 @@ cityForm.addEventListener('submit', e =>{
 
     //get city value
     const city = cityForm.city.value.trim();
+    
     cityForm.reset();
 
     // update UI with new city
     updateCity(city)
         .then(data => updateUI(data))
         .catch(err => console.log(err));
-}); 
+
+    //set local storage
+    localStorage.setItem('city',city);
+});
+
+
+//Apply the last saved city if user restarts app
+
+if(localStorage.getItem('city')){
+
+    //apply the city
+    const lastCity = localStorage.getItem('city');
+
+    updateCity(lastCity)
+        .then(data => updateUI(data))
+        .catch(err => console.log(err));
+}
